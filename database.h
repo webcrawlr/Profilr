@@ -20,28 +20,30 @@ struct Person{
 	//Displayed attributes
 	string name;
 	int age; //Not included in the code, to further simulate a facial recognition system.
-    int income;
+        int income;
 	string gender; //0 = male, 1 = female.  First digit of identifier.
 	string race; //White = 0, Hispanic/Latino = 1, Black = 2, Native American = 3, Asian = 4, Islander = 5, Mixed = 6.
 	string eyeColor; //Hazel = 0, light brown = 1, dark brown = 2, black = 3, gray = 4, green = 5, light blue = 6, blue = 7.
-    string hairColor; //Brown = 0, black = 1, blonde = 2, red = 3.
+        string hairColor; //Brown = 0, black = 1, blonde = 2, red = 3.
 	string occupation;
 	string fact;
 	//Hidden attributes.   Added to the end of the string to match to people, but not returned by normal user calls.
 	string chinSize; //0 - 2.
-    string eyebrowThickness; //0-2.
-    string eyeShape; //0-2.
-    string headSize; //0-2.
-    //int headShape; //Closed out for less posibilities in prototype
-    //Unique id: Go down line.  Example, Native American female with hazel eyes, black hair, midsize chin, thin eyebrows, round eye shape, and medium head: 13011021.
+        string eyebrowThickness; //0-2.
+        string eyeShape; //0-2.
+        string headSize; //0-2.
+        //int headShape; //Closed out for less posibilities in prototype
+    	//Unique id: Go down line.  Example, Native American female with hazel eyes, black hair, midsize chin, thin eyebrows, round eye shape, and medium head: 13011021.
 };
+const int ATTRIBUTE_SIZE = 8; //Number of attributes.
+int attributeChoices[ATTRIBUTE_SIZE] = {2,7,8,4,3,3,3};
 //---------------------------------------------------------------------------------READING THE DATABASE:
 //Function that returns attributes of an ID in a neat array
 //Note that IDSize is always 8.
 int* spliceID(int ID, int IDSize){
     int splicedID[IDSize] = {0};
     for(int i = IDSize; i > 0; i--){
-        splicedID[i] = ID % pow(10,(IDSize-i) + 1)
+        splicedID[i] = (ID % pow(10,(IDSize-i) + 1)) /= pow(10,(IDSIZE-i) + 1)
     }
     return splicedID;
 }
@@ -94,8 +96,13 @@ Person readPerson(string name, int age, string occupation, string fact, int inco
     personRead.eyeShape = IDTranscript[6];
     personRead.headSize = IDTranscript[7];
     
-    //Return a person with person described(PROTO)
+    //Return a person with person described
     return personRead;
 }
 
 //---------------------------------------------------------------------------------WRITING THE DATABASE:
+
+//Database generation
+void generateDatabase(int attributeNum, ){
+
+}
