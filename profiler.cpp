@@ -6,7 +6,7 @@ using namespace std;
 
 int main(){
     //For starters, let's just create the database.
-    int dbSize = 318000000; //Approximate size of the United States;
+    int dbSize = 1000;
     generateNewDatabase(dbSize);
     addCreator();
 }
