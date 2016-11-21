@@ -106,7 +106,7 @@ int returnIDFromAppearance(){
     //Ask for the rest of them.
     string prompts[7] = {"Race? (0 for White, 1 for Hispanic/Latino, 2 for Black, 3 for Native American, 4 for Asian, 5 for Pacific Islander, 6 for Middle Eastern, 7 for Mixed)", "Eye color? (0 for Hazel, 1 for Light brown, 2 for Dark Brown, 3 for Black, 4 for Grey, 5 for Green, 6 for Light Blue, 7 for Blue)", "Hair Color? (0 for Brown, 1 for Black, 2 for Blonde, 3 for Red)", "Chin size? (0 for Small, 1 for Medium, 2 for Large)", "Eyebrow Thickness? (0 for Thin, 1 for Normal, 2 for Thick)", "Eye Shape? (0 for Small, 1 for Normal, 2 for Round)", "Head size? (0 for Small, 1 for Medium, 2 for Large)"};
     for(int i = 0; i < 7; i++){
-        ID += returnNextDigit(prompts[i], i + 1, attributeChoices[i]);
+        ID += returnNextDigit(prompts[i], i + 1, attributeChoices[i+1]);
     }
     return ID;
 }
@@ -171,30 +171,30 @@ tPerson readDatabase(int ID){
     fin.open("database.txt");
     int currentRead;
     string currentSRead; //Current string read
+    fin.ignore(1000,10); //Skip the ---------- separator
     while(!foundID && fin.good()){
         //Check for id
-        fin.ignore(1000,10); //Skip the ---------- separator
         fin >> currentRead;
         if(currentRead == ID){
             foundID = true;
             //Get the information
             fin.ignore(1000,10);
-            fin >> currentSRead;
+            getline(fin, currentSRead);
             //That's the name:
             personScanned.name = currentSRead;
-            fin.ignore(1000,10);
-            fin >> currentSRead;
+            //fin.ignore(1000,10);
+            getline(fin, currentSRead);
             //That's the fact:
             personScanned.fact = currentSRead;
-            fin.ignore(1000,10);
+            //fin.ignore(1000,10);
             fin >> currentRead;
             //That's the age:
             personScanned.age = currentRead;
             fin.ignore(1000,10);
-            fin >> currentSRead;
+            getline(fin, currentSRead);
             //That's the occupation
             personScanned.occupation = currentSRead;
-            fin.ignore(1000,10);
+            //fin.ignore(1000,10);
             fin >> currentRead;
             //That's the income:
             personScanned.income = currentRead;
@@ -236,6 +236,7 @@ tPerson readDatabase(int ID){
         fout.close();
         //Now, after all that is said and done, return the values.
         personScanned.name = name;
+        personScanned.age = age;
         personScanned.fact = fact;
         personScanned.occupation = occupation;
         personScanned.income = income;
@@ -300,7 +301,7 @@ void generateNewDatabase(int dbSize){
         bool clear = true;
         int newID = generateID(ATTRIBUTE_SIZE, attributeChoices);
         //Compare to the linked list, to make sure that there is no repeat ID.
-        //Note that the ID 07002211 is reserved for the creator of the program.
+        //Note that the ID 17002211 is reserved for the creator of the program.
         IDGenerated* i;
         for(i = start; i; i = i -> next){
             if(i->id == newID || newID == 07002211){
@@ -335,6 +336,7 @@ void generateNewDatabase(int dbSize){
             fout << generateOccupation() << endl;
             //Then: Income
             fout << (rand() % 315000 + 15080) << endl;
+            people++;
         }
     }
     //Sneak myself in (evil laugh)
