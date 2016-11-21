@@ -1,0 +1,26 @@
+ __                  __   ___       __   __  
+/  ` |__|  /\  |\ | / _` |__  |    /  \ / _` 
+\__, |  | /~~\ | \| \__> |___ |___ \__/ \__> 
+                                             
+--------------------------------------------
+
+v1.0:
+- Finalized project.
+
+KNOWN GLITCHES:
+- Search by ID not working properly: the program can't seem to find the ID, and creates a new person instead.
+- Age goes off the charts when displayed, yet database registers fine.
+- Search by appearance prompts don't work properly, values for race are considered invalid.
+- An invalid command message displays only on the search functions, despite the functions running properly.
+
+PATCHES:
+-NONE-
+
+
+
+v1.1:
+-
+
+KNOWN GLITCHES:
+
+PATCHES:
