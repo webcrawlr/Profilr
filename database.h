@@ -1,5 +1,5 @@
 /*
-    Writer: Raymond Muller
+    Programmer: Raymond Muller
     Part of the Profiler Project.
     This module deals with the reading and writing of the database.
     FUTURE UPDATES:  
@@ -66,8 +66,49 @@ int* spliceID(int ID, const int IDSize){
     }
     return splicedID;
 }
+
+int returnNextDigit(string prompt, int digitNum, int choices){
+    int answer;
+    bool valid = false;
+    while(!valid){
+        cout << prompt << endl;
+        cin >> answer;
+        if(answer > (choices - 1)){
+            cout << "Invalid input.\n";    
+        }
+        else{
+            valid = true;
+        }
+    }
+    return answer * pow(10,7 - digitNum);
+}
 string returnAttribute(int number, string choices[]){
     return choices[number];
+}
+int returnIDFromAppearance(){
+    int ID = 0;
+    char answer = 'T';
+    //Ask for gender
+    while(toupper(answer) != 'M' && toupper(answer) != 'F'){
+        cout << "Gender? ('M' or 'F')\n";
+        cin >> answer;
+        
+        if(toupper(answer) == 'M'){
+            ID += 10000000;
+        }
+        else if(toupper(answer) == 'F'){
+            ID += 20000000;
+        }
+        else{
+            cout << "Invalid input.\nPlease type only \"M\" or \"F\"." << endl;
+        }
+    }
+    //Ask for the rest of them.
+    string prompts[7] = {"Race? (0 for White, 1 for Hispanic/Latino, 2 for Black, 3 for Native American, 4 for Asian, 5 for Pacific Islander, 6 for Middle Eastern, 7 for Mixed)", "Eye color? (0 for Hazel, 1 for Light brown, 2 for Dark Brown, 3 for Black, 4 for Grey, 5 for Green, 6 for Light Blue, 7 for Blue)", "Hair Color? (0 for Brown, 1 for Black, 2 for Blonde, 3 for Red)", "Chin size? (0 for Small, 1 for Medium, 2 for Large)", "Eyebrow Thickness? (0 for Thin, 1 for Normal, 2 for Thick)", "Eye Shape? (0 for Small, 1 for Normal, 2 for Round)", "Head size? (0 for Small, 1 for Medium, 2 for Large)"};
+    for(int i = 0; i < 7; i++){
+        ID += returnNextDigit(prompts[i], i + 1, attributeChoices[i]);
+    }
+    return ID;
 }
 //Attributes should be 8.
 string* readID(int ID, const int ATTRIB){
@@ -123,9 +164,13 @@ Person readPerson(string name, int age, string occupation, string fact, int inco
 //Search database for the entries, then get a "truncated Person"
 tPerson readDatabase(int ID){
     tPerson personScanned;
+    ifstream fin;
     //First, try to find the exact value
+    personScanned.id = ID;
     bool foundID = false;
     fin.open("database.txt");
+    int currentRead;
+    string currentSRead; //Current string read
     while(!foundID && fin.good()){
         //Check for id
         fin.ignore(1000,10); //Skip the ---------- separator
@@ -134,33 +179,31 @@ tPerson readDatabase(int ID){
             foundID = true;
             //Get the information
             fin.ignore(1000,10);
-            fin >> currentRead;
+            fin >> currentSRead;
             //That's the name:
-            personScanned.name = currentRead;
+            personScanned.name = currentSRead;
             fin.ignore(1000,10);
-            fin >> currentRead;
+            fin >> currentSRead;
             //That's the fact:
-            personScanned.fact = currentRead;
+            personScanned.fact = currentSRead;
             fin.ignore(1000,10);
             fin >> currentRead;
             //That's the age:
             personScanned.age = currentRead;
             fin.ignore(1000,10);
-            fin >> currentRead;
+            fin >> currentSRead;
             //That's the occupation
-            personScanned.occupation = currentRead;
+            personScanned.occupation = currentSRead;
             fin.ignore(1000,10);
             fin >> currentRead;
             //That's the income:
             personScanned.income = currentRead;
             //That's all we need, close shop.
-            fin.close();
         }
         else{
             //Not the right ID, skip 7, to the next ID.
             for(int i = 0; i < 7; i++){
                 fin.ignore(1000,10);
-                linesIn++;
             }
         }
     }
@@ -190,12 +233,16 @@ tPerson readDatabase(int ID){
         //Then: Income
         int income = (rand() % 315000 + 15080); 
         fout << income << endl;
-        
+        fout.close();
         //Now, after all that is said and done, return the values.
         personScanned.name = name;
+        personScanned.fact = fact;
+        personScanned.occupation = occupation;
+        personScanned.income = income;
     }
-
+    return personScanned;
 }
+
 //---------------------------------------------------------------------------------WRITING THE DATABASE:
 //Generate a person's ID:
 int generateID(int numAttributes, int idChoices[]){
@@ -225,6 +272,18 @@ void createDatabase(){
     ofstream fout;
     fout.open("database.txt");
     fout.close();
+}
+//Add the Program's creator to the databse ;-)
+void addCreator(){
+    ofstream fout;
+    fout.open("database.txt", ios::app);
+    fout << "----------" << endl;
+    fout << 17002211 << endl;
+    fout << "Raymond Muller" << endl;
+    fout << "Creator of the Program" << endl;
+    fout << 14 << endl;
+    fout << "Student" << endl;
+    fout << "133747234" << endl;
 }
 //Generate people into the database.
 //dbSize should be 318000000 when called.
@@ -278,16 +337,6 @@ void generateNewDatabase(int dbSize){
             fout << (rand() % 315000 + 15080) << endl;
         }
     }
-}
-//Add the Program's creator to the databse ;-)
-void addCreator(){
-    ofstream fout;
-    fout.open("database.txt", ios::app);
-    fout << "----------" << endl;
-    fout << 17002211 << endl;
-    fout << "Raymond Muller" << endl;
-    fout << "Creator of the Program" << endl;
-    fout << 14 << endl;
-    fout << "Student" << endl;
-    fout << "133747234" << endl;
+    //Sneak myself in (evil laugh)
+    addCreator();
 }
