@@ -1,5 +1,6 @@
 /*
     Programmer: Raymond Muller
+    Part of the Profiler project.
     This module generates profile characteristics.
 */
 
