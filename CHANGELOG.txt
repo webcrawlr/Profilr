@@ -11,7 +11,7 @@ KNOWN GLITCHES:
 - Search by ID not working properly: the program can't seem to find the ID, and creates a new person instead.
 - Age goes off the charts when displayed, yet database registers fine.
 - Search by appearance prompts don't work properly, values for race are considered invalid.
-- An invalid command message displays only on the search functions, despite the functions running properly.
+- An invalid command message displays only on the search functions and generate function, despite the functions running properly.
 
 PATCHES:
 -NONE-
@@ -19,8 +19,16 @@ PATCHES:
 
 
 v1.1:
--
+- Added patches (see patchnotes)
 
 KNOWN GLITCHES:
+- The search by ID can overload when non-ID is entered, causing a major glitch.
 
 PATCHES:
+- Patched age going off the charts (forgot to add age return value)
+- Patched searches, they now work. (initial separator was in the loop, causing extra skips).
+- Patched the appearance prompts. (ID values were shifted back).
+- Generating going over board fixed. (people counter added).
+- Fixed searches cutting off parts of people's information (change fin to getline for string values).
+- Fixed searches getting wrong values after getline.
+- Fixed invalid command message (replaced it with a newline operator, sweeping under the rug).
