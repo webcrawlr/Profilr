@@ -34,7 +34,7 @@ void searchMain(){
     cout << searchedPerson.fact << endl;
     cout << "Age: " << searchedPerson.age << endl;
     cout << "Occupation: " << searchedPerson.occupation << endl;
-    cout << "Income: " << searchedPerson.income << endl;
+    cout << "Income: $" << searchedPerson.income << endl;
 }
 
 void searchByID(){
@@ -47,7 +47,7 @@ void searchByID(){
     cout << searchedPerson.fact << endl;
     cout << "Age: " << searchedPerson.age << endl;
     cout << "Occupation: " << searchedPerson.occupation << endl;
-    cout << "Income: " << searchedPerson.income << endl;
+    cout << "Income: $" << searchedPerson.income << endl;
 }
 void viewAbout(){
     aboutSplash();
@@ -99,7 +99,7 @@ void mainShell(){
 				    clear = true; //Proceed to generate new database.
                 }
                 else if(toupper(answer) == 'N'){
-                    cout << "Cancelling command...";
+                    cout << "Cancelling command...\n";
                 }
                 else{
                     cout << "Invalid input.\nPlease type only \"Y\" or \"N\"." << endl;
@@ -145,7 +145,7 @@ void mainShell(){
             cout << "──▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▀▀" << endl;
         }
         else{
-            cout << "Invalid command.  Type \"h\" for a list of commands.\n";
+            cout << endl;
         }
     }
 }
