@@ -31,4 +31,16 @@ PATCHES:
 - Generating going over board fixed. (people counter added).
 - Fixed searches cutting off parts of people's information (change fin to getline for string values).
 - Fixed searches getting wrong values after getline.
-- Fixed invalid command message (replaced it with a newline operator, sweeping under the rug).
+- Fixed invalid command message (replaced it with a newline operator).
+
+
+
+v1.2:
+- Cleaned up display and code.
+- Removed some unused code.
+
+KNOWN GLITCHES:
+= The search by ID can overload when non-ID is entered, causing a major glitch.
+
+PATCHES:
+-NONE-
