@@ -182,11 +182,8 @@ tPerson readDatabase(int ID){
             getline(fin, currentSRead);
             //That's the name:
             personScanned.name = currentSRead;
-            //fin.ignore(1000,10);
             getline(fin, currentSRead);
-            //That's the fact:
             personScanned.fact = currentSRead;
-            //fin.ignore(1000,10);
             fin >> currentRead;
             //That's the age:
             personScanned.age = currentRead;
@@ -194,7 +191,6 @@ tPerson readDatabase(int ID){
             getline(fin, currentSRead);
             //That's the occupation
             personScanned.occupation = currentSRead;
-            //fin.ignore(1000,10);
             fin >> currentRead;
             //That's the income:
             personScanned.income = currentRead;
@@ -249,14 +245,6 @@ tPerson readDatabase(int ID){
 int generateID(int numAttributes, int idChoices[]){
     srand(time(NULL));
     int generatedID = 0;
-    /*
-    for(int i = 0; i < numAttributes; i++){
-        int numberToAdd = ((rand() % idChoices[i]) * (pow(10,(numAttributes - i) - 1)));
-        cout << "Digit " << i << ": " << numberToAdd << endl;
-        generatedID += numberToAdd; //Will add digits to the array within parameters 
-        cout <<"ID Now: " << generatedID << endl;
-    }
-    */
     //Do it manually, do to numerous glitches, including not enough digits being produced
     generatedID += (rand() % 2 + 1) * 10000000;
     generatedID += (rand() % 8) * 1000000;
