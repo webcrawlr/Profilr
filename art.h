@@ -33,7 +33,7 @@ void startSplash(){
     cout << "|_____|  |____| |___|`.___.'|_____|   |_____||________||________||____| |___| \n";
     cout << endl;
     cout << endl;
-    cout << "Profiler Version: 1.1 [pre-alpha]\n";
+    cout << "Profiler Version: 1.2 [pre-alpha]\n";
     cout << "Programmed By: Raymond Muller\n";
     cout << "______________________________________________________________________________\n";
 }
