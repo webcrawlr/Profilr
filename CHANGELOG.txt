@@ -43,4 +43,4 @@ KNOWN GLITCHES:
 = The search by ID can overload when non-ID is entered, causing a major glitch.
 
 PATCHES:
--NONE-
+- 1.2.1: Added Mac & Linux executable, as well as Windows exe file.
